@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+test_dir="$(cd "$(dirname "$0")" && pwd)"
+repo_dir="$(readlink -f "${test_dir}/..")"
+repo_name="$(git -C "${test_dir}/.." remote get-url origin)"
+
+repo_status="$(git -C "${test_dir}/.." status --porcelain)"
+if [[ $? -ne 0 ]]; then
+    echo "WARNING: Failed to check git repo status."
+fi
+
+if [[ -n "${repo_status}" ]]; then
+    echo "WARNING: The following changes have been made to your project repo:"
+    echo
+    echo "${repo_status}"
+    echo
+    echo "These changes will *NOT* be visible in the grade environment."
+    echo "Please check in and push your changes if necessary."
+
+    read -p "Continue anyway? [y/N] " answer
+    if [[ "${answer}" != "y" ]] && [[ "${answer}" != "Y" ]]; then
+        exit
+    fi
+fi
+
+export GIT_KEY="$(cat ${HOME}/.ssh/id_rsa)"
+ssh -o SendEnv="GIT_KEY" -t grader@192.168.122.240 "${repo_name}"
+
