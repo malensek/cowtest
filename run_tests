@@ -134,6 +134,6 @@ if [[ -n "${GRADE_ENV}" ]]; then
     read -p "Your grade is ${points}/${total_points}. Submit? [y/N] " answer
     if [[ "${answer}" == "y" ]] || [[ "${answer}" == "Y" ]]; then
         submit_grade "${points}" "${total_points}"
+        exit 2
     fi
-    exit 2
 fi
