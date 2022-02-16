@@ -24,5 +24,10 @@ if [[ -n "${repo_status}" ]]; then
 fi
 
 export GIT_KEY="$(cat ${HOME}/.ssh/id_rsa)"
-ssh -o SendEnv="GIT_KEY" -t grader@192.168.122.240 "${repo_name}"
+ssh \
+    -o SendEnv="GIT_KEY" \
+    -o StrictHostkeyChecking=no \
+    -o PasswordAuthentication=no \
+    -t \
+    grader@192.168.122.240 "${repo_name}"
 
