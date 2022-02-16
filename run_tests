@@ -124,3 +124,11 @@ else
 EOM
     fi
 fi
+
+if [[ -n "${GRADE_ENV}" ]]; then
+    echo
+    read -p "Your grade is ${points}/${total_points}. Submit? [y/N] " answer
+    if [[ "${answer}" == "y" ]] || [[ "${answer}" == "Y" ]]; then
+        submit_grade "${points}" "${total_points}"
+    fi
+fi
