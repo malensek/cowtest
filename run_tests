@@ -78,8 +78,12 @@ fi
 if [[ ${points} -ne ${total_points} ]]; then
     echo
     while true; do
-        echo -n "View test output (enter number, q to quit, r to rerun): "
-        read -r view
+        message="View test output (enter number, q to quit, r to rerun): "
+        if [[ -n "${GRADE_ENV}" ]]; then
+            message="View test output (enter number, q to quit / submit grade): "
+        fi
+
+        read -p "${message}" view
         if [[ -z "${view}" ]]; then
             continue
         fi
@@ -87,6 +91,10 @@ if [[ ${points} -ne ${total_points} ]]; then
         if [[ "${view}" == "q" || "${view}" == "Q" ]]; then
             break
         elif [[ "${view}" == "r" || "${view}" == "R" ]]; then
+            if [[ -n "${GRADE_ENV}" ]]; then
+                continue
+            fi
+
             args=""
             if [[ -n "${@}" ]]; then
                 args="run=${@}"
