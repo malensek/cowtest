@@ -3,8 +3,11 @@
 test_dir="$(cd "$(dirname "$0")" && pwd)"
 repo_dir="$(readlink -f "${test_dir}/..")"
 if ! git -C "${repo_dir}" status &> /dev/null; then
+    echo
     echo "[ ERROR ]: Could not find git repository information!"
-    echo "           Please ensure you cloned the project repo."
+    echo "           Please ensure you cloned the project repo"
+    echo "           with 'git clone'."
+    echo
     exit 1
 fi
 
