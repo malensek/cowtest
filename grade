@@ -2,7 +2,13 @@
 
 test_dir="$(cd "$(dirname "$0")" && pwd)"
 repo_dir="$(readlink -f "${test_dir}/..")"
-repo_name="$(git -C "${test_dir}/.." remote get-url origin)"
+if ! git -C "${repo_dir}" status &> /dev/null; then
+    echo "[ ERROR ]: Could not find git repository information!"
+    echo "           Please ensure you cloned the project repo."
+    exit 1
+fi
+
+repo_name="$(git -C "${repo_dir}" remote get-url origin)"
 
 repo_status="$(git -C "${test_dir}/.." status --porcelain)"
 if [[ $? -ne 0 ]]; then
