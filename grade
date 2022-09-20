@@ -38,5 +38,5 @@ ssh \
     -o StrictHostkeyChecking=no \
     -o PasswordAuthentication=no \
     -t \
-    grader@192.168.122.240 "${repo_name}"
+    grader@192.168.122.100 "${repo_name}"
 
