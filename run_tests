@@ -30,7 +30,7 @@ if [[ -d "${TEST_DIR}/prerun" ]]; then
     done
 fi
 
-mkdir -p "${TEST_DIR}/../test-outputs" 2>/dev/null
+mkdir -p "${TEST_DIR}/../outputs" 2>/dev/null
 num_commits=$(git -C "${TEST_DIR}" rev-list HEAD --count || echo "0")
 
 points=0
@@ -100,7 +100,7 @@ if [[ ${points} -ne ${total_points} ]]; then
             exit
         fi
 
-        test_view=$(printf "test-outputs/%02d.md" "${view}")
+        test_view=$(printf "outputs/%02d.md" "${view}")
         if [[ -e "${test_view}" ]]; then
             ${PAGER:-less} "${test_view}"
         else

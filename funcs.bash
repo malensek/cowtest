@@ -11,7 +11,7 @@ filtered_output=""
 reference_output=""
 run_timeout=0
 
-exec &> "${TEST_DIR}/../test-outputs/${test_num}.md"
+exec &> "${TEST_DIR}/../outputs/${test_num}.md"
 
 test_start() {
     if [[ ${in_test} == true ]]; then
